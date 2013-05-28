@@ -36,9 +36,9 @@ public class LocadoraDeVeiculos {
 		
 	}
 	
-	public Veiculos removerVeiculos(String modelo, String placa){
+	public Veiculos removerVeiculos(String placa){
 		for(Veiculos v: veiculos){
-			if((v.getModelo()==modelo)&&(v.getPlaca()==placa)){
+			if(v.getPlaca()==placa){
 				veiculos.remove(v);
 				return v;
 			}
