@@ -18,12 +18,12 @@ public class Main {
 		System.out.println(existe);
 		
 			
-		int tamanho = facade.tamanhoCliente();
+		int tamanho = facade.quantidadeDeCliente();
 		System.out.println(tamanho);
 		
 		facade.listarCliente();
 		
-		facade.removeCliente("well", 123);
+		facade.removerCliente("well", 123);
 		facade.listarCliente();
 		
 		

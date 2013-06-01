@@ -27,18 +27,33 @@ LocadoraDeVeiculos locadora = new LocadoraDeVeiculos();
 	}
 	
 	
-	public int tamanhoCliente(){
-		int tamanho = locadora.tamanhoDoCliente();
-		return tamanho;
+	public int quantidadeDeCliente(){
+		int quantidade = locadora.tamanhoDoCliente();
+		return quantidade;
 	}
+	
+	public int quantidadeDeVeiculos(){
+		int quantidade = locadora.tamanhoDeVeiculos();
+		return quantidade;
+	}
+	
 	
 	public boolean clienteEstaVazio(){
 		boolean existe = locadora.clienteEstaVazio();
 		return existe;
 	}
 	
-	public void removeCliente(String nome, int cpf){
+	public boolean veiculoEstaVazio(){
+		boolean existe = locadora.veiculosEstaVazio();
+		return existe;
+	}
+	
+	public void removerCliente(String nome, int cpf){
 		locadora.removerCliente(nome, cpf);	
+	}
+	
+	public void removerVeiculo(String placa){
+		locadora.removerVeiculos(placa);
 	}
 	
 	public void listarCliente(){
