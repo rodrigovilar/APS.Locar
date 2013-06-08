@@ -13,25 +13,29 @@ LocadoraDeVeiculos locadora = new LocadoraDeVeiculos();
 		return c;
 	}
 	
+	public Cliente getCliente(){
+		return getCliente();
+	}
+	
 	
 	public Veiculos criarVeiculoPasseio(String marca, String modelo, String placa){
-		VeiculoPasseio v = (VeiculoPasseio) criaVeiculo(marca, modelo, placa);
+		Veiculos v =  criaVeiculoPasseio(marca, modelo, placa);
 		locadora.addVeiculos(v);
 		return v;
 	}
 	
 	public Veiculos criarVeiculoUtilitario(String marca, String modelo, String placa){
-		VeiculoUtilitario v = (VeiculoUtilitario) criaVeiculo(marca, modelo, placa);
+		Veiculos v = criaVeiculoUtilitario(marca, modelo, placa);
 		locadora.addVeiculos(v);
 		return v;
 	}
 	
-	protected Veiculos criaVeiculo(String marca, String modelo, String placa){
+	protected Veiculos criaVeiculoPasseio(String marca, String modelo, String placa){
 		return new VeiculoPasseio(marca, modelo, placa);
 	}
 	
 	
-	protected Veiculos criaVeiculos(String marca, String modelo, String placa){
+	protected Veiculos criaVeiculoUtilitario(String marca, String modelo, String placa){
 		return new VeiculoUtilitario(marca, modelo, placa);
 	}
 	

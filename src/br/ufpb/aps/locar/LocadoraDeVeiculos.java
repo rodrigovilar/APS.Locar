@@ -97,6 +97,15 @@ public class LocadoraDeVeiculos {
 		return null;
 	}
 	
+	public boolean contemVeiculo(Veiculos veiculo, String placa){
+		boolean contem = false;
+		for(Veiculos veic: veiculos){
+			if(veic.getPlaca().equals(placa)){
+				return contem = veiculos.contains(veiculo);	
+			}
+		}
+		return false;
+	}
 	
 	
 

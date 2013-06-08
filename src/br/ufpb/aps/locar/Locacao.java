@@ -4,7 +4,6 @@ public interface Locacao {
 	
 	public void locarVeiculo();
 	
-	public void veiculoComAdicional();
 	
 
 }
