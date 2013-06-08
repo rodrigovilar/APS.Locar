@@ -52,7 +52,7 @@ public class LocadoraDeVeiculos {
 	}
 	
 	
-	public int tamanhoDoCliente(){
+	public int quantidadeDeCliente(){
 		int tamanho;
 		tamanho = clientes.size();
 		return tamanho;
@@ -63,7 +63,7 @@ public class LocadoraDeVeiculos {
 		return vazio;
 	}
 	
-	public int tamanhoDeVeiculos(){
+	public int quantidadeDeVeiculos(){
 		int tamanho = veiculos.size();
 		return tamanho;
 	}
@@ -83,6 +83,24 @@ public class LocadoraDeVeiculos {
 			System.out.println(c.getNome()+" "+ c.getCpf());
 		}
 	}
+
+
+
+	public Cliente removerCliente(Cliente c) {
+		for(Cliente clien: clientes){
+			if(clien ==  c){
+				clientes.remove(c);
+				return c;
+			}
+		}
+		
+		return null;
+	}
+	
+	
+	
+
+	
 	
 	
 	

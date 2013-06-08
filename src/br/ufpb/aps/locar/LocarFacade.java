@@ -15,25 +15,35 @@ LocadoraDeVeiculos locadora = new LocadoraDeVeiculos();
 	
 	
 	public Veiculos criarVeiculoPasseio(String marca, String modelo, String placa){
-		Veiculos v = new VeiculoPasseio(marca, modelo, placa);
+		VeiculoPasseio v = (VeiculoPasseio) criaVeiculo(marca, modelo, placa);
 		locadora.addVeiculos(v);
 		return v;
 	}
 	
 	public Veiculos criarVeiculoUtilitario(String marca, String modelo, String placa){
-		Veiculos v = new VeiculoUtilitario(marca, modelo, placa);
+		VeiculoUtilitario v = (VeiculoUtilitario) criaVeiculo(marca, modelo, placa);
 		locadora.addVeiculos(v);
 		return v;
 	}
 	
+	protected Veiculos criaVeiculo(String marca, String modelo, String placa){
+		return new VeiculoPasseio(marca, modelo, placa);
+	}
+	
+	
+	protected Veiculos criaVeiculos(String marca, String modelo, String placa){
+		return new VeiculoUtilitario(marca, modelo, placa);
+	}
+	
+	
 	
 	public int quantidadeDeCliente(){
-		int quantidade = locadora.tamanhoDoCliente();
+		int quantidade = locadora.quantidadeDeCliente();
 		return quantidade;
 	}
 	
 	public int quantidadeDeVeiculos(){
-		int quantidade = locadora.tamanhoDeVeiculos();
+		int quantidade = locadora.quantidadeDeVeiculos();
 		return quantidade;
 	}
 	
