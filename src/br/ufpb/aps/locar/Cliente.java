@@ -1,49 +1,25 @@
 package br.ufpb.aps.locar;
 
-public class Cliente {
-	
-private static int quantidade;
-	
-	
-	private String nome;
-	private String end;
-	private int cpf;
-	
-	public Cliente(String nome, int cpf, String end){
-		this.nome = nome;
-		this.cpf = cpf;
-		this.end = end;
-		quantidade++;
-	}
 
+public class Cliente extends Pessoa {
 	
-	public String getNome() {
-		return this.nome;
+	private static int quantidade;
+	
+	public String CEP;
+	
+	public void setCEP (String CEP) {
+		this.CEP = CEP;
 	}
 	
-	public void setNome(String nome) {
-		this.nome = nome;
+	public String getCEP () {
+		return CEP;
 	}
 	
-	public String getEnd() {
-		return this.end;
+	public Cliente(){
+		super();
+		quantidade ++;
 	}
-	
-	public void setEnd(String end) {
-		this.end = end;
-	}
-	
-	public int getCpf() {
-		return this.cpf;
-	}
-	
-	public void setCpf(int cpf) {
-		this.cpf = cpf;
-	}
-	
-	public String toString(){
-		return "NOME: " +this.nome + "CPF: "+this.cpf + "ENDEREÇO "+ this.end; 
-	}
-	
 
 }
+
+

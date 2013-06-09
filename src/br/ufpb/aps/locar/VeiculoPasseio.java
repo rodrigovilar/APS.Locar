@@ -8,8 +8,12 @@ public class VeiculoPasseio extends Veiculos{
 	LocadoraDeVeiculos locadora;
 	Veiculos veiculos;
 	
-	public VeiculoPasseio(String marca, String modelo, String placa){
-		super(marca, modelo, placa);
+	public VeiculoPasseio(){
+		super();
+	}
+	
+	public VeiculoPasseio(String marca, String numeracao, String placa){
+		super(marca,numeracao,placa);
 	}
 
 	public int getQTDE_MAXIMA_DE_PASSAGEIRO() {

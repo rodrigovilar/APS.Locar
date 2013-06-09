@@ -2,11 +2,15 @@ package br.ufpb.aps.locar;
 
 public class VeiculoUtilitario extends Veiculos {
 	
-private final int QTDE_MAXIMA_DE_PASSAGEIRO = 2;
+	private final int QTDE_MAXIMA_DE_PASSAGEIRO = 2;
+	public String numeroChasi;
 	
+	public VeiculoUtilitario(){
+		super();
+	}
 	
-	public VeiculoUtilitario(String marca, String modelo, String placa){
-		super(marca, modelo, placa);
+	public VeiculoUtilitario(String marca, String numeracao, String placa){
+		super(marca,numeracao,placa);
 	}
 	
 	
@@ -14,5 +18,14 @@ private final int QTDE_MAXIMA_DE_PASSAGEIRO = 2;
 		return QTDE_MAXIMA_DE_PASSAGEIRO;
 	}
 
+	
+
+	public void setNumeroChasi (String numeroChasi) {
+		this.numeroChasi = numeroChasi;
+	}
+	
+	public String getNumeroChasi () {
+		return numeroChasi;
+	}
 
 }

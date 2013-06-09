@@ -2,26 +2,31 @@ package br.ufpb.aps.locar;
 
 public abstract class Veiculos {
 	
-	private String modelo;
+	private String numeracao;
 	private String marca;
 	private String placa;
 
 	
 	
-	public Veiculos(String marca, String modelo, String placa){
+	public Veiculos(String marca, String numeracao, String placa){
 		this.marca = marca;
-		this.modelo = modelo;
+		this.numeracao = numeracao;
 		this.placa = placa;
 		
 	}
 	
-	public String getModelo() {
-		return modelo;
+	public Veiculos(){
+		
 	}
 	
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
+
+	public String getNumeracao() {
+		return numeracao;
 	}
+	public void setNumeracao(String numeracao) {
+		this.numeracao = numeracao;
+	}
+	
 	
 	public String getMarca() {
 		return marca;
@@ -43,7 +48,7 @@ public abstract class Veiculos {
 	
 	
 	public String toString(){
-		return "MARCA: "+this.getMarca()+"MODELO: "+this.getModelo()+"PLACA: "+this.getModelo();
+		return "MARCA: "+this.getMarca()+"MODELO: "+this.getNumeracao()+"PLACA: "+this.getPlaca();
 	}
 	
 
