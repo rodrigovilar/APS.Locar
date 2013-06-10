@@ -35,17 +35,6 @@ public class LocadoraDeVeiculos {
 		return clientes;
 	}
 	
-	/*
-	public Cliente addCliente(Cliente cliente){
-		clientes.add(cliente);
-		return cliente;
-	}
-	
-	public Veiculos addVeiculos(Veiculos veiculo){
-		veiculos.add(veiculo);
-		return veiculo;
-	}
-	*/
 	public Cliente removerCliente(String nome, String cpf){
 		for(Cliente cliente : clientes){
 			if((cliente.getNome()== nome)&&(cliente.getCpf()==cpf)){

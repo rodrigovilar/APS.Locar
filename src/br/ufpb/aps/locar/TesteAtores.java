@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.*;
 
 
-public class AtoresTeste {
+public class TesteAtores {
 	
 	Cliente pessoa;
 	VeiculoPasseio veiculo;
