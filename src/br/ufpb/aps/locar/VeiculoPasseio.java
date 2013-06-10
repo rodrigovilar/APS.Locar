@@ -1,12 +1,12 @@
 package br.ufpb.aps.locar;
 
-public class VeiculoPasseio extends Veiculos{
+public class VeiculoPasseio extends Veiculo{
 	
 	private final int QTDE_MAXIMA_DE_PASSAGEIRO = 5;
 
 	LocarFacade facade;
 	LocadoraDeVeiculos locadora;
-	Veiculos veiculos;
+	Veiculo veiculos;
 	
 	public VeiculoPasseio(){
 		super();

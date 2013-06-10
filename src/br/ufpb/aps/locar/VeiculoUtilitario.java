@@ -1,6 +1,6 @@
 package br.ufpb.aps.locar;
 
-public class VeiculoUtilitario extends Veiculos {
+public class VeiculoUtilitario extends Veiculo {
 	
 	private final int QTDE_MAXIMA_DE_PASSAGEIRO = 2;
 	public String numeroChasi;

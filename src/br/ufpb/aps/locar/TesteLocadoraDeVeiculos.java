@@ -2,6 +2,8 @@ package br.ufpb.aps.locar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -17,6 +19,8 @@ public class TesteLocadoraDeVeiculos {
 	VeiculoPasseio veiculo2;
 	VeiculoUtilitario veiculoUtilitario;
 	VeiculoUtilitario veiculoUtilitario2;
+	VeiculoPasseio veiculoPasseio;
+	VeiculoPasseio veiculoPasseio2;
 	AdministradorDaLocadora adm;
 	AdministradorDaLocadora adm2;
 	
@@ -31,6 +35,8 @@ public class TesteLocadoraDeVeiculos {
 		this.veiculo2 = new VeiculoPasseio();
 		this.veiculoUtilitario = new VeiculoUtilitario();
 		this.veiculoUtilitario2 = new VeiculoUtilitario();
+		this.veiculoPasseio = new VeiculoPasseio();
+		this.veiculoPasseio2 = new VeiculoPasseio();
 	}
 	
 	@Before
@@ -260,4 +266,51 @@ public class TesteLocadoraDeVeiculos {
 		adm.setMatricula("asdasd");
 		facade.adicionarAdministrador(adm.getMatricula(), adm);
 	}
+
+	 @Test 
+	public void removerVeiculoUtilitarioInexistente() {
+				
+		veiculo.setNumeracao("123");
+		veiculo.setPlaca("ABC123");
+		veiculoUtilitario.setPlaca("CDE789");
+		veiculoUtilitario2.setPlaca("FGH876");
+		
+		locadoraDeVeiculos.cadastrarVeiculo(veiculoUtilitario);
+		locadoraDeVeiculos.cadastrarVeiculo(veiculoUtilitario2);
+	
+		System.out.println(locadoraDeVeiculos.listarVeiculo().size());
+		
+		try{			
+			assertEquals(veiculo,locadoraDeVeiculos.removerVeiculo("123"));
+			fail("Deveria falhar");
+			
+		} catch (NaoCadastradoNoSistemaException ex) {
+			assertEquals("nao cadastrado no sistema", ex.getMessage());
+		}
+	
+    }
+	
+    @Test
+  	public void removerVeiculoPasseioInexistente() {
+  				
+  		veiculo.setNumeracao("234");
+  		veiculo.setPlaca("ABC123");
+  		veiculoPasseio.setPlaca("CDE780");
+  		veiculoPasseio2.setPlaca("FGH877");
+  		
+  		locadoraDeVeiculos.cadastrarVeiculo(veiculoPasseio);
+  		locadoraDeVeiculos.cadastrarVeiculo(veiculoPasseio2);
+  	
+  		System.out.println(locadoraDeVeiculos.listarVeiculo().size());
+  		
+  		try{			
+  			assertEquals(veiculo,locadoraDeVeiculos.removerVeiculo("234"));
+  			fail("Deveria falhar");
+  			
+  		} catch (NaoCadastradoNoSistemaException ex) {
+  			assertEquals("nao cadastrado no sistema", ex.getMessage());
+  		}
+  		
+      }
+	
 }

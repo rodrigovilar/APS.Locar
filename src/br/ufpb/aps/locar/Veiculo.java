@@ -1,24 +1,30 @@
 package br.ufpb.aps.locar;
 
-public abstract class Veiculos {
+public abstract class Veiculo {
 	
 	private String numeracao;
 	private String marca;
 	private String placa;
-
+	Categoria categoria;
 	
 	
-	public Veiculos(String marca, String numeracao, String placa){
+	public Veiculo(String marca, String numeracao, String placa){
 		this.marca = marca;
 		this.numeracao = numeracao;
 		this.placa = placa;
 		
 	}
 	
-	public Veiculos(){
+	public Veiculo(){
 		
 	}
 	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 
 	public String getNumeracao() {
 		return numeracao;

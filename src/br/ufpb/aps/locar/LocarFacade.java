@@ -31,7 +31,7 @@ public class LocarFacade {
 		
 
 		
-		public void adicionarVeiculo (String placaVeiculo, String numeracao, Veiculos veiculo) throws ValorInvalidoException {
+		public void adicionarVeiculo (String placaVeiculo, String numeracao, Veiculo veiculo) throws ValorInvalidoException {
 			veiculo.setPlaca(placaVeiculo);
 			veiculo.setNumeracao(numeracao);
 			if (placaVeiculo != null && numeracao != null) {
@@ -46,7 +46,7 @@ public class LocarFacade {
 		}
 		
 
-		public void adicionarVeiculoUtilitario (String numeracaoChasi, Veiculos veiculo) {
+		public void adicionarVeiculoUtilitario (String numeracaoChasi, Veiculo veiculo) {
 			if (Pattern.matches("^[0-9]+", numeracaoChasi)) {
 				locadora.addVeiculo(veiculo);
 			} else {
@@ -75,7 +75,7 @@ public class LocarFacade {
 			return locadora.listarCliente();
 		}
 		
-		public List<Veiculos> listarVeiculos () {
+		public List<Veiculo> listarVeiculos () {
 			return locadora.listarVeiculo();
 		}
 	
@@ -93,30 +93,30 @@ public class LocarFacade {
 	}
 	
 	
-	public Veiculos criarVeiculoPasseio(String marca, String modelo, String placa){
-		Veiculos v =  criaVeiculoPasseio(marca, modelo, placa);
+	public Veiculo criarVeiculoPasseio(String marca, String modelo, String placa){
+		Veiculo v =  criaVeiculoPasseio(marca, modelo, placa);
 		locadora.addVeiculo(v);
 		return v;
 	}
 	
-	public Veiculos criarVeiculoUtilitario(String marca, String modelo, String placa){
-		Veiculos v = criaVeiculoUtilitario(marca, modelo, placa);
+	public Veiculo criarVeiculoUtilitario(String marca, String modelo, String placa){
+		Veiculo v = criaVeiculoUtilitario(marca, modelo, placa);
 		locadora.addVeiculo(v);
 		return v;
 	}
 	
-	protected Veiculos criaVeiculoPasseio(String marca, String numeracao, String placa){
+	protected Veiculo criaVeiculoPasseio(String marca, String numeracao, String placa){
 		return new VeiculoPasseio(marca, numeracao, placa);
 	}
 	
-	protected Veiculos criaVeiculoPasseio(){
+	protected Veiculo criaVeiculoPasseio(){
 		return new VeiculoPasseio();
 	}
 	
-	protected Veiculos criaVeiculoUtilitario(){
+	protected Veiculo criaVeiculoUtilitario(){
 		return new VeiculoUtilitario();
 	}
-	protected Veiculos criaVeiculoUtilitario(String marca, String numeracao, String placa){
+	protected Veiculo criaVeiculoUtilitario(String marca, String numeracao, String placa){
 		return new VeiculoUtilitario(marca, numeracao, placa);
 	}
 	

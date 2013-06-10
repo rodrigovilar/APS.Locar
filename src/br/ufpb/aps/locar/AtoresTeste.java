@@ -39,7 +39,7 @@ public class AtoresTeste {
 		veiculo1.setMarca("UNO");
 		veiculo1.setNumeracao("MX404");
 		facade.adicionarVeiculo("MNO-1506",veiculo1.getNumeracao(), veiculo1);
-		List <Veiculos> veiculosSalvos = facade.listarVeiculos();
+		List <Veiculo> veiculosSalvos = facade.listarVeiculos();
 		assertEquals(1, veiculosSalvos.size());
 		VeiculoPasseio veiculo1Salvo = (VeiculoPasseio) veiculosSalvos.get(0);
 		assertEquals(veiculo1, veiculo1Salvo);
@@ -50,7 +50,7 @@ public class AtoresTeste {
 		VeiculoUtilitario veiculoUm = new VeiculoUtilitario();
 		veiculoUm.setNumeroChasi("12345");
 		facade.adicionarVeiculo("MNO-1506","", veiculoUm);
-		List <Veiculos> veiculosSalvos = facade.listarVeiculos();
+		List <Veiculo> veiculosSalvos = facade.listarVeiculos();
 		VeiculoUtilitario veiculo1Salvo = (VeiculoUtilitario) veiculosSalvos.get(0);
 		assertEquals(veiculoUm, veiculo1Salvo);
 	}

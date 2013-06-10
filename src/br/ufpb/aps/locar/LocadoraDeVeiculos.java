@@ -6,7 +6,7 @@ import java.util.List;
 
 public class LocadoraDeVeiculos {
 	
-	List<Veiculos> veiculos = new ArrayList<Veiculos>();
+	List<Veiculo> veiculos = new ArrayList<Veiculo>();
 	List<Cliente> clientes = new ArrayList<Cliente>();
 	List<AdministradorDaLocadora> administradoresDaLocadora = new ArrayList<AdministradorDaLocadora>();
 	
@@ -14,8 +14,8 @@ public class LocadoraDeVeiculos {
 		
 	}
 	
-	public List <Veiculos> addVeiculo(Veiculos veiculo) throws JaCadastradoException {
-		for (Veiculos v : veiculos) {
+	public List <Veiculo> addVeiculo(Veiculo veiculo) throws JaCadastradoException {
+		for (Veiculo v : veiculos) {
 			if (veiculo.getPlaca() == v.getPlaca() && veiculo.getNumeracao() == v.getNumeracao()) {
 				throw new JaCadastradoException();
 			}
@@ -53,7 +53,7 @@ public class LocadoraDeVeiculos {
 				return cliente;
 			}
 		}
-		throw new NaoCadastradoNoSistemaException();
+		throw new NaoCadastradoNoSistemaException("Nao cadastrado no sistema");
 		
 	}
 	
@@ -75,14 +75,14 @@ public class LocadoraDeVeiculos {
 	
 	
 	
-	public Veiculos removerVeiculo(String numeracao){
-		for(Veiculos v: veiculos){
+	public Veiculo removerVeiculo(String numeracao){
+		for(Veiculo v: veiculos){
 			if(v.getNumeracao()==numeracao){
 				veiculos.remove(v);
 				return v;
 			}
 		}
-		throw new NaoCadastradoNoSistemaException();
+		throw new NaoCadastradoNoSistemaException("nao cadastrado no sistema");
 	}
 	
 
@@ -93,7 +93,7 @@ public class LocadoraDeVeiculos {
 				return adm;
 			}
 		}
-		throw new NaoCadastradoNoSistemaException();
+		throw new NaoCadastradoNoSistemaException("nao cadastrado no sistema");
 	}
 	
 	public boolean isAdmExiste(String matricula) {
@@ -130,9 +130,9 @@ public class LocadoraDeVeiculos {
 	}
 	
 	public void listarVeiculos(){
-		Iterator<Veiculos> it = veiculos.iterator();
+		Iterator<Veiculo> it = veiculos.iterator();
 		while(it.hasNext()){
-			Veiculos v = it.next();
+			Veiculo v = it.next();
 			System.out.println(v.getMarca()+ v.getNumeracao()+ v.getPlaca());
 		}
 	}
@@ -151,7 +151,7 @@ public class LocadoraDeVeiculos {
 		return clientes;
 	}
 	
-	public List<Veiculos> listarVeiculo () {
+	public List<Veiculo> listarVeiculo () {
 		return veiculos;
 	}
 	
@@ -167,9 +167,9 @@ public class LocadoraDeVeiculos {
 		return null;
 	}
 	
-	public boolean contemVeiculo(Veiculos veiculo, String placa){
+	public boolean contemVeiculo(Veiculo veiculo, String placa){
 		boolean contem = false;
-		for(Veiculos veic: veiculos){
+		for(Veiculo veic: veiculos){
 			if(veic.getPlaca().equals(placa)){
 				return contem = veiculos.contains(veiculo);	
 			}
@@ -189,7 +189,7 @@ public class LocadoraDeVeiculos {
 	}
 	
 	public boolean isVeiculoExiste(String numeracao) {
-		for (Veiculos v : veiculos){
+		for (Veiculo v : veiculos){
 			if (v.getNumeracao() == numeracao) {
 				return true;
 			}
@@ -206,8 +206,8 @@ public class LocadoraDeVeiculos {
 		return null;
 	}
 	
-	public Veiculos buscarVeiculo(String numeracao) {
-		for (Veiculos v : veiculos){
+	public Veiculo buscarVeiculo(String numeracao) {
+		for (Veiculo v : veiculos){
 			if (v.getNumeracao() == numeracao) {
 				return v;
 			}
@@ -216,7 +216,16 @@ public class LocadoraDeVeiculos {
 	}
 	
 	
-	
+	public void  cadastrarVeiculo(Veiculo veiculo) throws JaCadastradoException {
+		for (Veiculo v : veiculos) {
+			if (v.getPlaca().equals(veiculo.getPlaca())){
+				throw new JaCadastradoException();
+			}
+		}
+		veiculos.add(veiculo);
+		
+	}
+
 	
 	
 	
