@@ -80,14 +80,7 @@ public class LocarFacade {
 		}
 	
 		
-	/*
 	
-	public Cliente criarCliente(String nome, String cpf, String end){
-		Cliente c = new Cliente(nome, cpf, end);
-		locadora.addCliente(c);
-		return c;
-	}
-	*/
 	public Cliente getCliente(){
 		return getCliente();
 	}

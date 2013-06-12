@@ -1,18 +1,84 @@
 package br.ufpb.aps.locar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class LocadoraDeVeiculos {
 	
 	List<Veiculo> veiculos = new ArrayList<Veiculo>();
 	List<Cliente> clientes = new ArrayList<Cliente>();
 	List<AdministradorDaLocadora> administradoresDaLocadora = new ArrayList<AdministradorDaLocadora>();
+	Map<String , Cliente> veiculosLocados;  
 	
 	public LocadoraDeVeiculos(){
+		veiculosLocados = new HashMap<>();
 		
 	}
+	
+
+
+	public void locarVeiculo (Veiculo veiculo, Cliente cliente) throws VeiculoException {
+		if (veiculosLocados == null)
+			throw new NullPointerException("Locadora de veículos não inicializada!");
+		if (veiculosLocados.containsKey(veiculo.getPlaca()))
+			throw new VeiculoException("Este veículo já encontra-se locado!");
+		veiculosLocados.put(veiculo.getPlaca(), cliente);
+	}
+	
+	
+	public List<Veiculo> getVeiculosLocados() throws VeiculoRuntimeException {
+		if (veiculosLocados.isEmpty())
+			throw new VeiculoRuntimeException("Não existem veículos locados no momento!");
+		List<Veiculo> locados;
+		locados = new ArrayList<>();
+		Veiculo _v;
+		Iterator<String> it = veiculosLocados.keySet().iterator();		
+		while (it.hasNext()){
+			String placa = (String) it.next();
+			_v = (Veiculo) getVeiculoPorPlaca(placa);
+			locados.add(_v);
+		}
+		return locados;
+	}
+	
+	
+	public List<Cliente> getClientesComVeiculoLocado() throws VeiculoRuntimeException {
+		if (veiculosLocados.isEmpty())
+			throw new VeiculoRuntimeException("Não existem veículos locados no momento!");		
+		List<Cliente> list = new ArrayList<>();
+		list.addAll(veiculosLocados.values());
+		return list;		
+	}
+	
+	
+	public Veiculo getVeiculoPorPlaca(String placa) throws VeiculoRuntimeException {		
+		for (Veiculo _v: veiculos) {
+			if (_v.getPlaca().equals(placa))
+				return _v;
+		}
+		throw new VeiculoRuntimeException("Não existe nenhum veículo cadastrado com essa a placa: " +
+				placa);
+	}
+	
+
+	public Cliente encerrarLocacao(String placa) throws VeiculoRuntimeException {
+		if (!veiculoLocado(placa))
+			throw new VeiculoRuntimeException("Veículo não locado!");
+		return veiculosLocados.remove(placa);
+	}
+	
+	
+	public boolean veiculoLocado(String placa) throws VeiculoRuntimeException {
+		List<Veiculo> locados = getVeiculosLocados();
+		for (Veiculo _v: locados)
+			if (_v.getPlaca().equals(placa))
+				return true;
+		throw new VeiculoRuntimeException("O Veículo com a placa " + placa + " não está locado!");
+	}
+	
 	
 	public List <Veiculo> addVeiculo(Veiculo veiculo) throws JaCadastradoException {
 		for (Veiculo v : veiculos) {

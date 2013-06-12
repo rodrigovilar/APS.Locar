@@ -1,5 +1,6 @@
 package br.ufpb.aps.locar;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
@@ -14,6 +15,7 @@ public class TesteLocadoraDeVeiculos {
 	LocadoraDeVeiculos locadoraDeVeiculos;
 	Cliente cliente;
 	Cliente cliente2;
+	Cliente cliente3;
 	LocarFacade facade;
 	VeiculoPasseio veiculo;
 	VeiculoPasseio veiculo2;
@@ -56,10 +58,13 @@ public class TesteLocadoraDeVeiculos {
 	public void inicializacaoClientes () {
 		cliente = new Cliente();
 		cliente2 = new Cliente();
+		cliente3 = new Cliente();
 		cliente.setCpf("123.123.123-22");
 		cliente2.setCpf("321.321.321-33");
+		cliente3.setCpf("101.101.101-10");
 		cliente.setNome("Neemias");
 		cliente2.setNome("De paula");
+		cliente3.setNome("Jessyca");
 	}
 	
 	@Test
@@ -312,5 +317,198 @@ public class TesteLocadoraDeVeiculos {
   		}
   		
       }
+    
+
+   
+    @Test
+    public void testLocarVeiculo() {   	
+    	
+    	try {    		
+    		veiculo.setPlaca("ABC123");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculo);
+			locadoraDeVeiculos.locarVeiculo(veiculo, cliente);
+			assertEquals(1, locadoraDeVeiculos.getVeiculosLocados().size());
+		
+    	} catch (VeiculoException e) {
+			fail("NÃO DEVERIA TER LANÇADO ESSA EXCEÇÃO");
+		}
+    	
+    	try {
+			locadoraDeVeiculos.locarVeiculo(veiculo, cliente);
+			fail("DEVERIA TER LANÇADO UMA EXCEÇÃO!");
+			
+		} catch (VeiculoException e) {			
+			assertEquals(1, locadoraDeVeiculos.getVeiculosLocados().size());
+		}
+    	
+    	try {
+    		veiculo2.setPlaca("DEF456");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculo2);
+			locadoraDeVeiculos.locarVeiculo(veiculo2, cliente2);
+			assertEquals(2, locadoraDeVeiculos.getVeiculosLocados().size());
+			
+		} catch (VeiculoException e) {
+			fail("NÃO DEVERIA TER LANÇADO ESSA EXCEÇÃO");
+		}
+    	
+    	try {
+    		veiculoPasseio.setPlaca("GHI789");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculoPasseio);
+			locadoraDeVeiculos.locarVeiculo(veiculoPasseio, cliente3);
+			assertEquals(3, locadoraDeVeiculos.getVeiculosLocados().size());
+			
+		} catch (VeiculoException e) {
+			fail("NÃO DEVERIA TER LANÇADO ESSA EXCEÇÃO");
+		}
+    	
+    }
+    
+    
+    @Test
+    public void testVeiculoLocado() {
+    	
+    	try {
+    		
+    		veiculoPasseio.setPlaca("GHI789");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculoPasseio);
+			locadoraDeVeiculos.locarVeiculo(veiculoPasseio, cliente3);
+			assertTrue(locadoraDeVeiculos.veiculoLocado("GHI789"));
+			
+		} catch (VeiculoException e) {
+			fail("NÃO DEVERIA TER LANÇADO ESSA EXCEÇÃO");
+		}    	    		
+		
+    	try {
+			veiculoPasseio2.setPlaca("ABC123");
+			locadoraDeVeiculos.cadastrarVeiculo(veiculoPasseio2);
+			assertFalse(locadoraDeVeiculos.veiculoLocado("ABC123"));
+    	} catch (VeiculoRuntimeException e) {
+    		assertEquals("O Veículo com a placa ABC123 não está locado!", e.getMessage());
+    	}
+		
+		try {
+			
+			locadoraDeVeiculos.locarVeiculo(veiculoPasseio2, cliente);
+			assertTrue(locadoraDeVeiculos.veiculoLocado("ABC123"));
+			
+    		veiculo.setPlaca("KJF122");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculo);
+			locadoraDeVeiculos.locarVeiculo(veiculo, cliente);
+			
+			veiculo2.setPlaca("FGA798");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculo2);
+			locadoraDeVeiculos.locarVeiculo(veiculo2, cliente3);
+			
+			assertTrue(locadoraDeVeiculos.veiculoLocado("GHI789"));
+			assertTrue(locadoraDeVeiculos.veiculoLocado("ABC123"));
+			assertTrue(locadoraDeVeiculos.veiculoLocado("KJF122"));
+			assertTrue(locadoraDeVeiculos.veiculoLocado("FGA798"));
+			
+			assertEquals(4, locadoraDeVeiculos.getVeiculosLocados().size());
+			
+		} catch (VeiculoException e) {
+			fail("NÃO DEVERIA TER LANÇADO ESSA EXCEÇÃO");
+		}
+		
+    }
+    
+    
+    @Test
+    public void testEncerrarLocacao() {
+    	
+    	try {
+    		
+    		veiculo.setPlaca("ABC123");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculo);
+			locadoraDeVeiculos.locarVeiculo(veiculo, cliente);
+			assertTrue(locadoraDeVeiculos.veiculoLocado("ABC123"));
+			
+		} catch (VeiculoException e) {
+			fail("NÃO DEVERIA TER LANÇADO ESSA EXCEÇÃO");
+		}
+		
+		try {
+			veiculoPasseio.setPlaca("GHI789");
+			locadoraDeVeiculos.cadastrarVeiculo(veiculoPasseio);
+			assertFalse(locadoraDeVeiculos.veiculoLocado("GHI789"));
+    	} catch (VeiculoRuntimeException e) {
+    		assertEquals("O Veículo com a placa GHI789 não está locado!", e.getMessage());
+    	}
+		
+		try {
+			
+			locadoraDeVeiculos.encerrarLocacao("ABC123");
+			assertTrue(locadoraDeVeiculos.veiculoLocado("ABC123"));
+			fail("DEVERIA TER LANÇADO ESSA EXCEÇÃO");
+			
+		} catch (VeiculoRuntimeException ex) {
+			
+			assertEquals("Não existem veículos locados no momento!", ex.getMessage());
+		}
+    	
+		try {
+			
+			locadoraDeVeiculos.locarVeiculo(veiculo, cliente);
+			
+			veiculo2.setPlaca("JHG645");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculo2);
+			locadoraDeVeiculos.locarVeiculo(veiculo2, cliente2);
+			
+			locadoraDeVeiculos.locarVeiculo(veiculoPasseio, cliente3);
+			
+			veiculoPasseio2.setPlaca("FGS421");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculoPasseio2);
+			locadoraDeVeiculos.locarVeiculo(veiculoPasseio2, cliente3);
+			
+			assertEquals(4, locadoraDeVeiculos.getVeiculosLocados().size());
+			
+			locadoraDeVeiculos.encerrarLocacao("ABC123");			
+			locadoraDeVeiculos.encerrarLocacao("GHI789");			
+			locadoraDeVeiculos.encerrarLocacao("JHG645");			
+			locadoraDeVeiculos.encerrarLocacao("FGS421");
+			
+			assertEquals(1, locadoraDeVeiculos.getVeiculosLocados().size());
+			fail("DEVERIA TER LANÇADO ESSA EXCEÇÃO");
+			
+		} catch (VeiculoException e) {
+			fail(e.getMessage());
+		} catch (VeiculoRuntimeException e) {
+			assertEquals("Não existem veículos locados no momento!", e.getMessage());
+		}
+		
+    }
+    
+    
+    @Test
+    public void testClientesComVeiculosLocados () {
+    	
+    	try {
+			
+    		veiculo.setPlaca("ABC123");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculo);
+			locadoraDeVeiculos.locarVeiculo(veiculo, cliente);
+			
+			veiculo2.setPlaca("JHG645");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculo2);
+			locadoraDeVeiculos.locarVeiculo(veiculo2, cliente2);
+			
+			veiculoPasseio.setPlaca("IUS987");
+    		locadoraDeVeiculos.cadastrarVeiculo(veiculoPasseio);
+			locadoraDeVeiculos.locarVeiculo(veiculoPasseio, cliente3);			
+			
+			assertEquals(3, locadoraDeVeiculos.getVeiculosLocados().size());
+			
+			assertEquals(2, locadoraDeVeiculos.getClientesComVeiculoLocado().size());
+			fail("DEVERIA TER LANÇADO UMA EXCEÇÃO");
+			
+		} catch (VeiculoException e) {
+			fail(e.getMessage());
+			
+		} catch (AssertionError ex) {
+			assertEquals(3, locadoraDeVeiculos.getClientesComVeiculoLocado().size());
+		}	
+    	
+    }
+	
 	
 }
