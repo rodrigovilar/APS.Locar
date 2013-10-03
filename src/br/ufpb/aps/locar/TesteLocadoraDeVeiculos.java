@@ -389,7 +389,6 @@ public class TesteLocadoraDeVeiculos {
     	}
 		
 		try {
-			
 			locadoraDeVeiculos.locarVeiculo(veiculoPasseio2, cliente);
 			assertTrue(locadoraDeVeiculos.veiculoLocado("ABC123"));
 			
