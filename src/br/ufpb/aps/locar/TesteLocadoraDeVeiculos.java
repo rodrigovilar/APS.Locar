@@ -233,7 +233,8 @@ public class TesteLocadoraDeVeiculos {
 	public void addVeiculoSemNumeracaoePlaca () {
 		veiculo.setPlaca(null);
 		veiculo.setNumeracao(null);
-		facade.adicionarVeiculo(veiculo.getPlaca(), veiculo.getNumeracao(), veiculo);
+		facade.adicionarVeiculo(veiculo.getPlaca(), 
+				veiculo.getNumeracao(), veiculo);
 	}
 	
 	@Test (expected = ValorNuloException.class)

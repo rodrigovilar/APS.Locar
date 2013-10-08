@@ -41,8 +41,10 @@ public class PagamentoTest {
 		
 		pagamentoFactory = PagamentoFactory.getInstance();
 		locadora = new LocadoraDeVeiculos();
-		operador1 = new Operador("Joao", "12345", "loc123", "vendas", new Date(), "op1-locadora");
-		operador2 = new Operador("Maria", "56789", "loc456", "vendas", new Date(), "op2-locadora");
+		operador1 = new Operador("Joao", "12345", 
+				"loc123", "vendas", new Date(), "op1-locadora");
+		operador2 = new Operador("Maria", "56789", "loc456", "vendas", 
+				new Date(), "op2-locadora");
 		veiculoPasseio = new VeiculoPasseio("Gol", "111222333", "abc1234");
 		veiculoUtil = new VeiculoUtilitario("Elantra", "777888999", "cde5678");
 		cliente1 = new Cliente("Obama", "12345");
@@ -101,7 +103,8 @@ public class PagamentoTest {
 			locadora.efetuarPagamento(pgto_pontos);
 			assertEquals(2, locadora.getPagamentos().size());
 			
-			/* esse teste deve lançar um VeiculoRuntimeException, pois já não existem veículos locados */
+			/* esse teste deve lançar um VeiculoRuntimeException, 
+			 * pois já não existem veículos locados */
 			assertEquals(0, locadora.getVeiculosLocados().size());
 			
 		} catch (VeiculoException e) {
