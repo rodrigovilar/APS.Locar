@@ -11,6 +11,16 @@ public abstract class Pessoa {
 		
 	}
 	
+	public Pessoa(String _nome, String _cpf) {
+		this(_nome, _cpf, "");
+	}
+	
+	public Pessoa(String _nome, String _cpf, String _end) {
+		nome = _nome;
+		cpf = _cpf;
+		end = _end;
+	}
+	
 	public String getNome() {
 		return this.nome;
 	}

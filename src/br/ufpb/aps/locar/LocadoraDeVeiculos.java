@@ -1,25 +1,113 @@
 package br.ufpb.aps.locar;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.management.OperationsException;
+
+import br.ufpb.aps.pgto.PagamentoDinheiro;
+import br.ufpb.aps.pgto.Pagamento;
+import br.ufpb.aps.pgto.PagamentoException;
+import br.ufpb.aps.pgto.PagamentoFactory;
+import br.ufpb.aps.pgto.PagamentoType;
+import br.ufpb.aps.pgto.io.PagamentoIO;
+
 public class LocadoraDeVeiculos {
 	
 	List<Veiculo> veiculos = new ArrayList<Veiculo>();
 	List<Cliente> clientes = new ArrayList<Cliente>();
-	List<AdministradorDaLocadora> administradoresDaLocadora = new ArrayList<AdministradorDaLocadora>();
-	Map<String , Cliente> veiculosLocados;  
+	List<AdministradorDaLocadora> administradoresDaLocadora = new ArrayList<AdministradorDaLocadora>();	
 	
+	private List<Operador> operadores; /*Jessyca*/
+	private List<Pagamento> pagamentos; /*Jessyca*/ 
+	private PagamentoIO pagamentoIO; /*Jessyca*/
+	PagamentoFactory pagamentoFactory; /*Jessyca*/
+	
+	Map<String , Cliente> veiculosLocados;
+	
+	/* @Jéssyca */	
 	public LocadoraDeVeiculos(){
 		veiculosLocados = new HashMap<>();
+		pagamentos = new ArrayList<>();
+		operadores = new ArrayList<>();
+		pagamentoFactory = PagamentoFactory.getInstance();
+		pagamentoIO = new PagamentoIO("data\\pgtos.bin");
+	}
+
 		
+	/* @Jéssyca */	
+	public void efetuarPagamento(Pagamento pgto) throws PagamentoException {		
+		try {
+			if (veiculoLocado(pgto.getVeiculo().getPlaca()) && clienteEmLocacao(pgto.getCliente())) {
+				pagamentos.add(pgto);
+				/* após o pagamento, a locação é encerrada */
+				encerrarLocacao(pgto.getVeiculo().getPlaca());
+			} else {
+				throw new PagamentoException("Erro no pagamento. Verifique o status do cliente e"
+								+ " do veículo e tente novamente!");
+			}
+		} catch (VeiculoRuntimeException ex) {
+			throw new PagamentoException(ex.getMessage());
+		}
 	}
 	
-
-
+	/* Jéssyca */
+	public void gravarPagamentosNoArquivo() throws PagamentoException {
+		if (pagamentos == null)
+			throw new PagamentoException("Não existem pagamentos realizados neste momento");
+		pagamentoIO.registrarPagamentosNoArquivo(pagamentos);
+	}
+	
+	/* Jéssyca */
+	public void recuperarPagamentosDoArquivo() {
+		pagamentos.addAll(pagamentoIO.getPagamentosRegistradosNoArquivo());
+	}
+	
+	/* Jéssyca */
+	public boolean clienteEmLocacao(Cliente cliente) throws VeiculoRuntimeException {
+		if (veiculosLocados.isEmpty())
+			throw new VeiculoRuntimeException("Não existem veículos locados no momento!");
+		Cliente _c;
+		Iterator<Cliente> it = veiculosLocados.values().iterator();		
+		while (it.hasNext()){
+			_c = (Cliente) it.next();
+			if (_c.getCpf().equals(cliente.getCpf()))
+				return true;
+		}
+		return false;
+	}
+	
+	/* Jéssyca */
+	public List<Pagamento> getPagamentos() {
+		return pagamentos;
+	}
+	
+	/* Jéssyca */
+	public Operador cadastrarOperador(Operador op) throws OperationsException {
+		if (operadores.contains(op))
+			throw new OperationsException("O operador " + op.getNome() + " já está cadastrado!");
+		operadores.add(op);
+		return op;			
+	}
+	
+	/* Jéssyca */
+	public void removerTodosOsPagamentos() throws PagamentoException {
+		if (pagamentos == null)
+			throw new PagamentoException("Não existem pagamentos realizados neste momento");
+		pagamentos.clear();
+	}
+	
+	/* Jéssyca */
+	public File getFilePagamentos() {
+		return pagamentoIO.getFile();
+	}
+	
+	
 	public void locarVeiculo (Veiculo veiculo, Cliente cliente) throws VeiculoException {
 		if (veiculosLocados == null)
 			throw new NullPointerException("Locadora de veículos não inicializada!");

@@ -1,6 +1,8 @@
 package br.ufpb.aps.locar;
 
-public class VeiculoUtilitario extends Veiculo {
+import java.io.Serializable;
+
+public class VeiculoUtilitario extends Veiculo implements Serializable {
 	
 	private final int QTDE_MAXIMA_DE_PASSAGEIRO = 2;
 	public String numeroChasi;

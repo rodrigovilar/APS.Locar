@@ -1,6 +1,8 @@
 package br.ufpb.aps.locar;
 
-public abstract class Veiculo {
+import java.io.Serializable;
+
+public abstract class Veiculo implements Serializable {
 	
 	private String numeracao;
 	private String marca;
