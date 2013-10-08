@@ -68,16 +68,19 @@ public class PagamentoTest {
 	@Test
 	public void testPagamento(){
 		try {
+			
 			locadora.locarVeiculo(veiculoPasseio, cliente1);
 			assertEquals(1, locadora.getVeiculosLocados().size());
 			locadora.locarVeiculo(veiculoUtil, cliente2);
-			cliente2.setPontos(50); // o cliente ganhou 50 pontos pela locação
+			// o cliente ganhou 50 pontos pela locação
+			cliente2.setPontos(50);
 			assertEquals(2, locadora.getVeiculosLocados().size());
 			
 			/* realiza o pagamento em dinheiro da locação para o veículoPasseio */
 			PagamentoDinheiro pgto_dinheiro = (PagamentoDinheiro) 
 					pagamentoFactory.getPagamento(PagamentoType.DINHEIRO);
-			pgto_dinheiro.setValor(125.50f); /* o cálculo do valor fica por conta da regra de negócio */
+			 /* o cálculo do valor fica por conta da regra de negócio */
+			pgto_dinheiro.setValor(125.50f);
 			pgto_dinheiro.setCliente(cliente1);
 			pgto_dinheiro.setVeiculo(veiculoPasseio);
 			pgto_dinheiro.setData(new Date());
@@ -115,7 +118,8 @@ public class PagamentoTest {
 		}
 		
 		PagamentoDinheiro pgto_dinheiro = (PagamentoDinheiro) 
-				pagamentoFactory.getPagamento(PagamentoType.DINHEIRO);		
+				pagamentoFactory.getPagamento(PagamentoType.DINHEIRO);
+		
 		try {
 			
 			locadora.locarVeiculo(veiculoPasseio, cliente1);
@@ -157,7 +161,9 @@ public class PagamentoTest {
 	
 	@Test
 	public void testPagamentosIO() {
+		
 		try {			
+			
 			locadora.locarVeiculo(veiculoPasseio, cliente2);
 			assertEquals(1, locadora.getVeiculosLocados().size());
 			

@@ -13,6 +13,7 @@ import java.util.*;
 
 public class TesteAtores {
 	
+	//Teste de criação dos atores
 	Cliente pessoa;
 	VeiculoPasseio veiculo;
 	LocarFacade facade;
@@ -70,4 +71,5 @@ public class TesteAtores {
 		AdministradorDaLocadora outroAdmSalvo = admSalvo.get(0);
 		assertEquals(administradorDaLocadora, outroAdmSalvo);
 	}
+	
 }
