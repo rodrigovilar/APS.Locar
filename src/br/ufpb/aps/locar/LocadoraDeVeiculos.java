@@ -376,7 +376,9 @@ public class LocadoraDeVeiculos {
 		return veiculos;
 	}
 	
-	
+	public List<AdministradorDaLocadora> getAdms () {
+		return administradoresDaLocadora;
+	}
 	
 
 }

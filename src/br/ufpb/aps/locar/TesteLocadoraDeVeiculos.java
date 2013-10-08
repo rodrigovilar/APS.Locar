@@ -80,14 +80,29 @@ public class TesteLocadoraDeVeiculos {
 		cliente = criarCliente();
 		LocadoraDeVeiculos lc = new LocadoraDeVeiculos();
 		lc.addCliente(cliente);
-		salvar(lc.getClientes(), "e://clientes.bin");
+		salvar(lc.getClientes(), "C:\\Users\\NEEMIAS\\workspace\\clientes.bin");
 		
 		try {
-			listaRecuperada = (List<Cliente>) restaurar("e://clientes.bin");
+			listaRecuperada = (List<Cliente>) restaurar("C:\\Users\\NEEMIAS\\workspace\\clientes.bin");
 		} catch (FileNotFoundException e) {
 			listaRecuperada = new ArrayList<Cliente>();
 		}
 		assertEquals(lc.getClientes().get(0), listaRecuperada.get(0));
+		
+		//Para Administrador
+		List<AdministradorDaLocadora> listaRecuperada3;
+		adm.setCpf("111.111.111-22");
+		adm.setEnd("Rua sem nome");
+		adm.setMatricula("45646546");
+		adm.setNome("Juvencio");
+		lc.addAdministradoresDaLocadora(adm);
+		salvar(lc.getAdms(), "C:\\Users\\NEEMIAS\\workspace\\adm.bin");
+		try {
+			listaRecuperada3 = (List<AdministradorDaLocadora>) restaurar("C:\\Users\\NEEMIAS\\workspace\\adm.bin");
+		} catch (FileNotFoundException e) {
+			listaRecuperada3 = new ArrayList<AdministradorDaLocadora>();
+		}
+		assertEquals(lc.getAdms().get(0), listaRecuperada3.get(0));
 		
 		//Para Veículo
 		List<Veiculo> listaRecuperada2;
@@ -96,9 +111,9 @@ public class TesteLocadoraDeVeiculos {
 		veiculo.setCategoria(Categoria.PASSEIO);
 		veiculo.setNumeracao("12345678");
 		lc.addVeiculo(veiculo);
-		salvar(lc.getVeiculos(), "e://veiculos.bin");
+		salvar(lc.getVeiculos(), "C:\\Users\\NEEMIAS\\workspace\\vei.bin");
 		try {
-			listaRecuperada2 = (List<Veiculo>) restaurar("e://veiculos.bin");
+			listaRecuperada2 = (List<Veiculo>) restaurar("C:\\Users\\NEEMIAS\\workspace\\vei.bin");
 		} catch (FileNotFoundException e) {
 			listaRecuperada2 = new ArrayList<Veiculo>();
 		}

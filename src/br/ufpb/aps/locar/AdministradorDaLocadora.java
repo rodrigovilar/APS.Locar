@@ -1,6 +1,8 @@
 package br.ufpb.aps.locar;
 
-public class AdministradorDaLocadora extends Pessoa {
+import java.io.Serializable;
+
+public class AdministradorDaLocadora extends Pessoa implements Serializable{
 	
 	private static int quantidade;
 	public String matricula;
