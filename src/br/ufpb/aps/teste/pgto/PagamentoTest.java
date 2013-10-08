@@ -102,16 +102,22 @@ public class PagamentoTest {
 			assertEquals(0, locadora.getVeiculosLocados().size());
 			
 		} catch (VeiculoException e) {
+			
 			fail("[VeiculoException]: NÃO DEVERIA LANÇAR ESTA EXCEÇÃO");
+			
 		} catch (PagamentoException e) {
+			
 			fail("[PagamentoException]: NÃO DEVERIA LANÇAR ESTA EXCEÇÃO");
+			
 		} catch (VeiculoRuntimeException err) {
+			
 			assertEquals("Não existem veículos locados no momento!", err.getMessage());
 		}
 		
 		PagamentoDinheiro pgto_dinheiro = (PagamentoDinheiro) 
 				pagamentoFactory.getPagamento(PagamentoType.DINHEIRO);		
 		try {
+			
 			locadora.locarVeiculo(veiculoPasseio, cliente1);
 			assertEquals(1, locadora.getVeiculosLocados().size());		
 			
@@ -123,20 +129,25 @@ public class PagamentoTest {
 			pgto_dinheiro.setOperador(operador1);
 			locadora.efetuarPagamento(pgto_dinheiro);
 			fail("DEVERIA LANÇAR UMA EXCEÇÃO");	
+			
 		} catch (PagamentoException ex) {
+			
 			assertEquals("Erro no pagamento. Verifique o status do" +
-					" cliente e do veículo e tente novamente!", ex.getMessage());			
+					" cliente e do veículo e tente novamente!", ex.getMessage());	
+			
 		} catch (VeiculoException ex) {
 			fail("NÃO DEVERIA LANÇAR ESTA EXCEÇÃO");
 		}
 		
 		/* realizar um pagamento duas vezes */
 		try {
+			
 			pgto_dinheiro.setCliente(cliente1);
 			locadora.efetuarPagamento(pgto_dinheiro);
 			assertEquals(3, locadora.getPagamentos().size());
 			locadora.efetuarPagamento(pgto_dinheiro);		
 			fail("DEVERIA LANÇAR UMA EXCEÇÃO");
+			
 		} catch (PagamentoException ex) {
 			/* como não existe veículo locado, é lançada uma exceção */
 			assertEquals("Não existem veículos locados no momento!", ex.getMessage());
@@ -172,11 +183,17 @@ public class PagamentoTest {
 			fail("DEVERIA LANÇAR UMA EXCEÇÃO");
 			
 		} catch (VeiculoException e) {
-			fail("[VeiculoException]: NÃO DEVERIA LANÇAR ESTA EXCEÇÃO" + e.getMessage());		
+			
+			fail("[VeiculoException]: NÃO DEVERIA LANÇAR ESTA EXCEÇÃO" + e.getMessage());	
+			
 		} catch (PagamentoException e) {
+			
 			fail("[PagamentoException]: NÃO DEVERIA LANÇAR ESTA EXCEÇÃO" + e.getMessage());		
+			
 		} catch (AssertionError err) {
+			
 			assertEquals(1, locadora.getPagamentos().size());
+			
 		}
 	}
 	
