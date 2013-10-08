@@ -1,4 +1,4 @@
-package br.ufpb.aps.teste.pgto;
+package br.ufpb.aps.teste;
 
 import static org.junit.Assert.*;
 

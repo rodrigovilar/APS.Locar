@@ -59,5 +59,21 @@ public abstract class Veiculo implements Serializable {
 		return "MARCA: "+this.getMarca()+"MODELO: "+this.getNumeracao()+"PLACA: "+this.getPlaca();
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Veiculo))
+			return false;
+		Veiculo other = (Veiculo) obj;
+		if (marca == null) {
+			if (other.marca != null)
+				return false;
+		} else if (!numeracao.equals(other.numeracao))
+			return false;
+		return true;
+	}
 
 }

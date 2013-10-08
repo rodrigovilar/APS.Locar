@@ -2,7 +2,6 @@ package br.ufpb.aps.locar;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -10,11 +9,9 @@ import java.util.Map;
 
 import javax.management.OperationsException;
 
-import br.ufpb.aps.pgto.PagamentoDinheiro;
 import br.ufpb.aps.pgto.Pagamento;
 import br.ufpb.aps.pgto.PagamentoException;
 import br.ufpb.aps.pgto.PagamentoFactory;
-import br.ufpb.aps.pgto.PagamentoType;
 import br.ufpb.aps.pgto.io.PagamentoIO;
 
 public class LocadoraDeVeiculos {
@@ -32,11 +29,12 @@ public class LocadoraDeVeiculos {
 	
 	/* @Jéssyca */	
 	public LocadoraDeVeiculos(){
-		veiculosLocados = new HashMap<>();
-		pagamentos = new ArrayList<>();
-		operadores = new ArrayList<>();
+		veiculosLocados = new HashMap<String, Cliente>();
+		pagamentos = new ArrayList<Pagamento>();
+		operadores = new ArrayList<Operador>();
 		pagamentoFactory = PagamentoFactory.getInstance();
 		pagamentoIO = new PagamentoIO("data\\pgtos.bin");
+		
 	}
 
 		
@@ -121,7 +119,7 @@ public class LocadoraDeVeiculos {
 		if (veiculosLocados.isEmpty())
 			throw new VeiculoRuntimeException("Não existem veículos locados no momento!");
 		List<Veiculo> locados;
-		locados = new ArrayList<>();
+		locados = new ArrayList<Veiculo>();
 		Veiculo _v;
 		Iterator<String> it = veiculosLocados.keySet().iterator();		
 		while (it.hasNext()){
@@ -136,7 +134,7 @@ public class LocadoraDeVeiculos {
 	public List<Cliente> getClientesComVeiculoLocado() throws VeiculoRuntimeException {
 		if (veiculosLocados.isEmpty())
 			throw new VeiculoRuntimeException("Não existem veículos locados no momento!");		
-		List<Cliente> list = new ArrayList<>();
+		List<Cliente> list = new ArrayList<Cliente>();
 		list.addAll(veiculosLocados.values());
 		return list;		
 	}
@@ -369,7 +367,14 @@ public class LocadoraDeVeiculos {
 		
 	}
 
-	
+	public List<Cliente> getClientes(){
+		return clientes;
+	}
+
+
+	public List<Veiculo> getVeiculos() {
+		return veiculos;
+	}
 	
 	
 	
